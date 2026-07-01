@@ -1,0 +1,27 @@
+package main
+
+import "fmt"
+
+func PrintVal(v interface{}) {
+	switch t := v.(type) {
+	case int:
+		fmt.Printf("v is int %d\n", int(t))
+	case float64:
+		fmt.Printf("v is float %f\n", float64(t))
+	case string:
+		fmt.Printf("v is int %s\n", string(t))
+	default:
+		fmt.Printf("Not supposed type: %T:%v\n", t, t)
+	}
+}
+
+type Student struct {
+	Age int
+}
+
+func main() {
+	PrintVal(10)
+	PrintVal(3.14)
+	PrintVal("Hello")
+	PrintVal(Student{15})
+}
