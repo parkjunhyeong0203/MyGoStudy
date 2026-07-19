@@ -12,6 +12,7 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { //Handl
 }
 
 func main() {
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { //핸들러 등록, 경로에 리퀘스트 들어오면 핸들, 절대 경로
 		fmt.Fprint(w, "Hello World") // 펑션은 정해진 형태의 인자를 받는다.
 	})
