@@ -26,7 +26,8 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { //Handl
 		return
 	}
 	user.CreatedAt = time.Now()
-	data, _ := json.Marshal(user) // user를 다시 json
+	data, _ := json.Marshal(user)                      // user를 다시 json
+	w.Header().Add("content-type", "application/json") //이걸 알려줘야 json을 해석가능
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(data)) //data는 바이트 타입이라 강제 타입 변환
 }
