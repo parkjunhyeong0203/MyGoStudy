@@ -1,4 +1,4 @@
-package main
+package myapp
 
 import (
 	"encoding/json"
@@ -17,6 +17,10 @@ type User struct {
 
 type fooHandler struct{}
 
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "Hello World")
+}
+
 func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { //Handler 인터페이스 구현
 	user := &User{}
 	err := json.NewDecoder(r.Body).Decode(user) //리퀘스트 바디에 NewDecoder의 인자로 Reader를 받는다, 받은 json 디코딩 -> 그 후 user에 넣는다.
@@ -29,7 +33,7 @@ func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { //Handl
 	data, _ := json.Marshal(user)                      // user를 다시 json
 	w.Header().Add("content-type", "application/json") //이걸 알려줘야 json을 해석가능
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, string(data)) //data는바이트 타입이라 강제 타입 변환
+	fmt.Fprint(w, string(data)) //data는 바이트 타입이라 강제 타입 변환
 }
 
 func barHandler(w http.ResponseWriter, r *http.Request) {
@@ -41,9 +45,15 @@ func barHandler(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(values.Get("id"))
 	fmt.Fprintf(w, "Hello %s! id:%d", name, id)
 }
+func NewHttpHandler() http.Handler {
+	mux := http.NewServeMux() //먹스 사용, 라우터 역할
+	mux.HandleFunc("/", indexHandler)
 
-func main() {
-	http.Handle("/foo", &fooHandler{})
-	http.HandleFunc("/bar", barHandler)
-	http.ListenAndServe(":3000", nil)
+	mux.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) { // 절대경로/bar 경로
+		fmt.Fprint(w, "Hello Bar!")
+	})
+	mux.Handle("/foo", &fooHandler{}) //인스턴스 형태로 등록.
+
+	http.ListenAndServe(":3000", mux) //웹서버 구동, 리퀘스트 기다린다.
+	return mux
 }
