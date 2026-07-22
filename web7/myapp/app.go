@@ -22,7 +22,7 @@ func NewHandler() http.Handler {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/users", usersHandler)
-	mux.HandleFunc("/users/{id:[0-9]+}", indexHandler) //id마다 메서드를 하나하나 추가 할수 없으니 고릴라 먹스사용
+	mux.HandleFunc("/users/{id:[0-9]+}", getUserInfoHandler) //id마다 메서드를 하나하나 추가 할수 없으니 고릴라 먹스사용
 
 	return mux
 }

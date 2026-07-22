@@ -53,7 +53,5 @@ func NewHttpHandler() http.Handler {
 		fmt.Fprint(w, "Hello Bar!")
 	})
 	mux.Handle("/foo", &fooHandler{}) //인스턴스 형태로 등록.
-
-	http.ListenAndServe(":3000", mux) //웹서버 구동, 리퀘스트 기다린다.
 	return mux
 }
