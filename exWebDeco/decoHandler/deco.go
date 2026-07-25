@@ -10,7 +10,7 @@ type DecoHandler struct {
 }
 
 func (self *DecoHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) { //자기꺼 구현
-	self.fn(w, r, self.h) //구현부 함수 변수화, 이래서 더 추상적듯
+	self.fn(w, r, self.h) //구현부 함수 변수화, 이래서 더 추상적인듯
 }
 
 func NewDecoHandler(h http.Handler, fn DecoratorFunc) http.Handler {
