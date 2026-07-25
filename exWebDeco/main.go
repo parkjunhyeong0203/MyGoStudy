@@ -17,7 +17,7 @@ func logger(w http.ResponseWriter, r *http.Request, h http.Handler) {
 
 func NewHandler() http.Handler {
 	mux := myapp.NewHandler()
-	h := decoHandler.NewDecoHandler(mux, logger)
+	h := decoHandler.NewDecoHandler(mux, logger) //여기서 결정
 	return h
 }
 
