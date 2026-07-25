@@ -2,10 +2,7 @@ module web7.2
 
 go 1.26.3
 
-require (
-	github.com/gin-gonic/gin v1.12.0
-	github.com/gorilla/mux v1.8.1
-)
+require github.com/gin-gonic/gin v1.12.0
 
 require (
 	github.com/bytedance/gopkg v0.1.3 // indirect
