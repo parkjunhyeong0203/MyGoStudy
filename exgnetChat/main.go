@@ -39,6 +39,9 @@ func (cs *chatServer) OnTraffic(c gnet.Conn) gnet.Action {
 
 	cs.cliMap.Range(func(key any, value any) bool {
 		if conn, ok := key.(gnet.Conn); ok { // 인처페이스 타입인 key를 gnet.Conn으로 타입 변환
+			if c == conn { // 나는 제외
+				return true
+			}
 			conn.AsyncWrite(buf, nil)
 		}
 		return true
