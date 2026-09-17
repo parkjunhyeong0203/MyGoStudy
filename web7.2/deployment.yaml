@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-ginweb-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-ginweb
+  template:
+    metadata:
+      labels:
+        app: my-ginweb
+    spec:
+      containers:
+      - name: my-ginweb-container
+        image: pjhqw030203/go-gin-web-server:v1
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        ports:
+        - containerPort: 3000
